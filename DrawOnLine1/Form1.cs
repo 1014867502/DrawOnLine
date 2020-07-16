@@ -38,8 +38,8 @@ namespace DrawOnLine1
             series.ToolTip = "#VALX,#VALY";
             chart1.ChartAreas[0].AxisY.Title = @"ml";
             chart1.ChartAreas[0].AxisX.Title = @"Time";
-            series.ChartType = SeriesChartType.Line;//图表类型
-            series2.ChartType = SeriesChartType.Line;
+            series.ChartType = SeriesChartType.SplineRange;//图表类型
+            series2.ChartType = SeriesChartType.SplineRange;
 
             chart1.ChartAreas[0].BackColor = Color.Transparent;
             chart1.ChartAreas[0].BackSecondaryColor = Color.AliceBlue;
@@ -52,8 +52,8 @@ namespace DrawOnLine1
             //series.markercolor = color.white;
             series.BorderWidth = 1;
             //series.MarkerBorderColor = Color.Blue;
-            series.Color = Color.Blue;
-            series2.Color = Color.Orange;
+            series.Color = Color.FromArgb(100,Color.Blue);
+            series2.Color = Color.FromArgb(100,Color.Orange);
 
             series.XValueType = ChartValueType.Auto;
 
@@ -307,10 +307,11 @@ namespace DrawOnLine1
             }
             Console.WriteLine(DNFilter.Count);
             Console.WriteLine(DataTimeFilter.Count);
-            //for (int i = 0; i < DNFilter.Count; i++)
-            //{
-            //    chart1.Series[0].Points.AddXY(DataTimeFilter[i], DNFilter[i]);
-            //}
+            for (int i = 0; i < DNFilter.Count; i++)
+            {
+                chart1.Series[0].XValueType = ChartValueType.DateTime;
+                chart1.Series[0].Points.AddXY(DataTimeFilter[i], DNFilter[i]);
+            }
             for (int i = 0; i < DN.Length; i++)
             {
                 chart1.Series[1].Points.AddXY(dataTime[i], DN[i]);
@@ -388,7 +389,7 @@ namespace DrawOnLine1
                 myInterval = Math.Abs(end);
                 if (myInterval == 0.0)
                     return;
-                chart1.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm:ss"; //X轴显示的时间格式，HH为大写时是24小时制，hh小写时是12小时制
+                chart1.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy-MM-dd HH:mm:ss"; //X轴显示的时间格式，HH为大写时是24小时制，hh小写时是12小时制
                 //chart1.ChartAreas[0].AxisX.Minimum = DateTime.Parse(sDate.ToString("HH:mm:ss")).ToOADate();
                 //chart1.ChartAreas[0].AxisX.Maximum = DateTime.Parse(sDate.AddSeconds(xValue).ToString("HH:mm:ss")).ToOADate();
                 chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Seconds;//如果是时间类型的数据，间隔方式可以是秒、分、时

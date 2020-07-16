@@ -10,8 +10,7 @@ namespace DrawOnLine1
     {
         private DateTime? id;
         private float value;
-        private DateTime? aveid;
-        private float ave;
+       
 
         public DateTime? Id { get => id; set => id = value; }
         public float Value { get => value; set => this.value = value; }
@@ -22,10 +21,10 @@ namespace DrawOnLine1
             this.Value = value;
         }
 
-        public SortClass(DateTime? aveid, float ave)
+        public SortClass(DateTime? id, float value)
         {
-            this.aveid = aveid;
-            this.ave = ave;
+            this.Id = id;
+            this.Value = value;
         }
     }
     
